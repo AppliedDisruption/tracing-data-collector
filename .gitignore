@@ -1,0 +1,50 @@
+# OS
+.DS_Store
+Thumbs.db
+
+# Environment (secrets — never commit)
+.env
+.env*.local
+!.env.example
+
+# Node / Expo (tracing-labeler)
+node_modules/
+.expo/
+dist/
+web-build/
+expo-env.d.ts
+.metro-health-check*
+npm-debug.*
+yarn-debug.*
+yarn-error.*
+*.tsbuildinfo
+
+# Python (mockbackend)
+.venv/
+__pycache__/
+*.py[cod]
+*$py.class
+.python-version
+*.egg-info/
+.eggs/
+
+# Native mobile builds
+/ios
+/android
+.kotlin/
+*.jks
+*.p8
+*.p12
+*.key
+*.mobileprovision
+*.pem
+
+# IDE / editors
+.idea/
+.vscode/
+*.swp
+*.swo
+*~
+
+# Logs
+*.log
