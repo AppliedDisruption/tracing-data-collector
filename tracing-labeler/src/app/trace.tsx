@@ -11,16 +11,18 @@ import { Ionicons } from '@expo/vector-icons';
 import { useLocalSearchParams, useRouter } from 'expo-router';
 import { TracingCanvas } from '../trace/TracingCanvas';
 import { useTraceSession } from '../trace/useTraceSession';
-import { getShuffledCharacters } from '../trace/characters';
+import { getShuffledCharacters, type TraceMode } from '../trace/characters';
 import { getTracingCanvasWidth } from '../trace/getTracingCanvasWidth';
 
 /** Main screen: draw a letter, mark correct/wrong, POST to backend. Route: `/trace`. */
 export default function TraceScreen() {
-  const { labelerName } = useLocalSearchParams<{ labelerName: string }>();
+  const { labelerName, mode } = useLocalSearchParams<{ labelerName: string; mode?: string }>();
   const router = useRouter();
   const { width } = useWindowDimensions();
+  const traceMode: TraceMode =
+    mode === 'small' || mode === 'digit' || mode === 'capital' ? mode : 'capital';
 
-  const characters = useMemo(() => getShuffledCharacters(), []);
+  const characters = useMemo(() => getShuffledCharacters(traceMode), [traceMode]);
 
   const canvasWidth = getTracingCanvasWidth(width);
 
@@ -51,7 +53,13 @@ export default function TraceScreen() {
         </TouchableOpacity>
         <Text style={styles.doneTitle}>Session Complete!</Text>
         <Text style={styles.doneSubtitle}>You saved {session.totalSaved} traces</Text>
-        <Text style={styles.doneInfo}>Data saved to your server</Text>
+        <Text style={styles.doneInfo}>
+          {traceMode === 'capital'
+            ? 'Capital letters completed'
+            : traceMode === 'small'
+              ? 'Small letters completed'
+              : 'Digits completed'}
+        </Text>
         <TouchableOpacity style={styles.newSessionButton} onPress={goHome}>
           <Text style={styles.newSessionButtonText}>Back to home</Text>
         </TouchableOpacity>
@@ -72,6 +80,13 @@ export default function TraceScreen() {
           <Ionicons name="home-outline" size={24} color="#1565C0" />
         </TouchableOpacity>
         <View style={styles.headerCenter}>
+          <Text style={styles.modeLabel}>
+            {traceMode === 'capital'
+              ? 'Capital Letters'
+              : traceMode === 'small'
+                ? 'Small Letters'
+                : 'Digits'}
+          </Text>
           <Text style={styles.characterPrompt}>
             Trace: {session.currentCharacter?.character ?? ''}
           </Text>
@@ -111,7 +126,9 @@ export default function TraceScreen() {
           <Text style={styles.errorText}>{session.errorMessage}</Text>
         )}
         {session.saveStatus === 'idle' && !session.hasPoints && (
-          <Text style={styles.hintText}>Draw the letter above</Text>
+          <Text style={styles.hintText}>
+            Draw the {traceMode === 'digit' ? 'digit' : 'letter'} above
+          </Text>
         )}
       </View>
 
@@ -186,6 +203,12 @@ const styles = StyleSheet.create({
     fontWeight: '800',
     color: '#1565C0',
     textAlign: 'center',
+  },
+  modeLabel: {
+    fontSize: 14,
+    color: '#888',
+    fontWeight: '700',
+    marginBottom: 4,
   },
   progress: {
     fontSize: 16,

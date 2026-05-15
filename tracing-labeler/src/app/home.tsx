@@ -50,8 +50,8 @@ export default function HomeDashboardScreen() {
     }
   };
 
-  const openTracing = () => {
-    router.push({ pathname: '/trace', params: { labelerName } });
+  const openTracing = (mode: 'capital' | 'small' | 'digit') => {
+    router.push({ pathname: '/trace', params: { labelerName, mode } });
   };
 
   if (!labelerName) {
@@ -86,9 +86,31 @@ export default function HomeDashboardScreen() {
       </View>
 
       <View style={styles.center}>
-        <TouchableOpacity style={styles.tracingCard} onPress={openTracing} activeOpacity={0.9}>
-          <Text style={styles.tracingTitle}>Tracing</Text>
-          <Text style={styles.tracingHint}>Tap to start a labeling session</Text>
+        <TouchableOpacity
+          style={styles.tracingCard}
+          onPress={() => openTracing('capital')}
+          activeOpacity={0.9}
+        >
+          <Text style={styles.tracingTitle}>Trace Capital Letters</Text>
+          <Text style={styles.tracingHint}>Practice A-Z uppercase tracing</Text>
+        </TouchableOpacity>
+
+        <TouchableOpacity
+          style={styles.tracingCard}
+          onPress={() => openTracing('small')}
+          activeOpacity={0.9}
+        >
+          <Text style={styles.tracingTitle}>Trace Small Letters</Text>
+          <Text style={styles.tracingHint}>Practice a-z lowercase tracing</Text>
+        </TouchableOpacity>
+
+        <TouchableOpacity
+          style={styles.tracingCard}
+          onPress={() => openTracing('digit')}
+          activeOpacity={0.9}
+        >
+          <Text style={styles.tracingTitle}>Trace Digits</Text>
+          <Text style={styles.tracingHint}>Practice 0-9 number tracing</Text>
         </TouchableOpacity>
       </View>
     </View>
@@ -148,16 +170,17 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     padding: 24,
+    gap: 14,
   },
   tracingCard: {
     backgroundColor: '#FFF',
     borderRadius: 20,
-    paddingVertical: 48,
-    paddingHorizontal: 56,
+    paddingVertical: 24,
+    paddingHorizontal: 24,
     alignItems: 'center',
     borderWidth: 1,
     borderColor: '#E0E0E0',
-    minWidth: 260,
+    minWidth: 300,
     shadowColor: '#000',
     shadowOffset: { width: 0, height: 2 },
     shadowOpacity: 0.08,
@@ -165,10 +188,11 @@ const styles = StyleSheet.create({
     elevation: 3,
   },
   tracingTitle: {
-    fontSize: 36,
+    fontSize: 28,
     fontWeight: '800',
     color: '#1565C0',
-    marginBottom: 10,
+    marginBottom: 8,
+    textAlign: 'center',
   },
   tracingHint: {
     fontSize: 15,
