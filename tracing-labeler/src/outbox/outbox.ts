@@ -4,7 +4,7 @@
  */
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import type { TraceAttemptPayload } from '../api/traceAttempts';
-import { saveAttempt } from '../api/traceAttempts';
+import { getTraceAttemptsPostUrl, saveAttempt } from '../api/traceAttempts';
 
 const OUTBOX_STORAGE_KEY = '@tracing_labeler_outbox_v1';
 
@@ -74,10 +74,9 @@ let flushTail: Promise<void> = Promise.resolve();
  */
 export function flushOutbox(): Promise<void> {
   const run = async (): Promise<void> => {
-    const httpUrl = process.env.EXPO_PUBLIC_TRACING_ATTEMPTS_URL?.trim();
-    if (!httpUrl) {
+    if (!getTraceAttemptsPostUrl()) {
       if (__DEV__) {
-        console.warn('[outbox] skip flush: EXPO_PUBLIC_TRACING_ATTEMPTS_URL not set');
+        console.warn('[outbox] skip flush: EXPO_PUBLIC_TRACING_API_BASE_URL not set');
       }
       return;
     }
