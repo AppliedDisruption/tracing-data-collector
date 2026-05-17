@@ -30,7 +30,8 @@
         "backgroundColor": "#ffffff"
       },
       "edgeToEdgeEnabled": true,
-      "predictiveBackGestureEnabled": false
+      "predictiveBackGestureEnabled": false,
+      "package": "com.applieddisruption.tracinglabeler"
     },
     "web": {
       "favicon": "./assets/favicon.png"
