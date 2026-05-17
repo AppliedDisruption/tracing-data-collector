@@ -3,6 +3,14 @@
     "name": "tracing-labeler",
     "slug": "tracing-labeler",
     "version": "1.0.0",
+    "runtimeVersion": {
+      "policy": "appVersion"
+    },
+    "updates": {
+      "url": "https://u.expo.dev/64ed1020-b33e-488d-a6d6-43b1511bba53",
+      "checkAutomatically": "ON_LOAD",
+      "fallbackToCacheTimeout": 0
+    },
     "orientation": "portrait",
     "icon": "./assets/icon.png",
     "userInterfaceStyle": "light",
@@ -30,6 +38,13 @@
     },
     "plugins": [
       "expo-router"
-    ]
+    ],
+    "extra": {
+      "router": {},
+      "eas": {
+        "projectId": "64ed1020-b33e-488d-a6d6-43b1511bba53"
+      }
+    },
+    "owner": "applied-disruption"
   }
 }
