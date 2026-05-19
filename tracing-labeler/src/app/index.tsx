@@ -31,6 +31,7 @@ export default function LabelerGateScreen() {
       <TextInput
         style={styles.input}
         placeholder="Your name"
+        placeholderTextColor="#999"
         value={name}
         onChangeText={setName}
         autoCapitalize="words"
@@ -76,6 +77,7 @@ const styles = StyleSheet.create({
     borderRadius: 12,
     padding: 16,
     fontSize: 18,
+    color: '#222',
     marginBottom: 20,
   },
   button: {

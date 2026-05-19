@@ -137,7 +137,7 @@ const styles = StyleSheet.create({
   syncPill: {
     flexDirection: 'row',
     alignItems: 'center',
-    backgroundColor: '#1565C0',
+    backgroundColor: '#C62828',
     paddingVertical: 8,
     paddingHorizontal: 14,
     borderRadius: 20,
@@ -157,13 +157,15 @@ const styles = StyleSheet.create({
     fontSize: 14,
   },
   syncOk: {
+    backgroundColor: '#2E7D32',
     paddingVertical: 8,
-    paddingHorizontal: 12,
+    paddingHorizontal: 14,
+    borderRadius: 20,
   },
   syncOkText: {
-    color: '#888',
-    fontSize: 13,
-    fontWeight: '600',
+    color: '#FFF',
+    fontSize: 14,
+    fontWeight: '700',
   },
   center: {
     flex: 1,

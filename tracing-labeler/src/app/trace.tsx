@@ -9,6 +9,7 @@ import {
 } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import { useLocalSearchParams, useRouter } from 'expo-router';
+import { SafeAreaView } from 'react-native-safe-area-context';
 import { TracingCanvas } from '../trace/TracingCanvas';
 import { useTraceSession } from '../trace/useTraceSession';
 import { getShuffledCharacters, type TraceMode } from '../trace/characters';
@@ -132,43 +133,45 @@ export default function TraceScreen() {
         )}
       </View>
 
-      <View style={styles.buttonRow}>
-        <TouchableOpacity
-          style={[
-            styles.button,
-            styles.clearButton,
-            session.saveStatus === 'saving' && styles.buttonDisabled,
-          ]}
-          onPress={session.clearAttempt}
-          disabled={session.saveStatus === 'saving'}
-        >
-          <Text style={styles.buttonText}>Clear</Text>
-        </TouchableOpacity>
+      <SafeAreaView edges={['bottom']}>
+        <View style={styles.buttonRow}>
+          <TouchableOpacity
+            style={[
+              styles.button,
+              styles.clearButton,
+              session.saveStatus === 'saving' && styles.buttonDisabled,
+            ]}
+            onPress={session.clearAttempt}
+            disabled={session.saveStatus === 'saving'}
+          >
+            <Text style={styles.buttonText}>Clear</Text>
+          </TouchableOpacity>
 
-        <TouchableOpacity
-          style={[
-            styles.button,
-            styles.wrongButton,
-            (!session.hasPoints || session.saveStatus === 'saving') && styles.buttonDisabled,
-          ]}
-          onPress={() => session.submitTrace('wrong')}
-          disabled={!session.hasPoints || session.saveStatus === 'saving'}
-        >
-          <Text style={styles.buttonText}>✗ Wrong</Text>
-        </TouchableOpacity>
+          <TouchableOpacity
+            style={[
+              styles.button,
+              styles.wrongButton,
+              (!session.hasPoints || session.saveStatus === 'saving') && styles.buttonDisabled,
+            ]}
+            onPress={() => session.submitTrace('wrong')}
+            disabled={!session.hasPoints || session.saveStatus === 'saving'}
+          >
+            <Text style={styles.buttonText}>✗ Wrong</Text>
+          </TouchableOpacity>
 
-        <TouchableOpacity
-          style={[
-            styles.button,
-            styles.correctButton,
-            (!session.hasPoints || session.saveStatus === 'saving') && styles.buttonDisabled,
-          ]}
-          onPress={() => session.submitTrace('correct')}
-          disabled={!session.hasPoints || session.saveStatus === 'saving'}
-        >
-          <Text style={styles.buttonText}>✓ Correct</Text>
-        </TouchableOpacity>
-      </View>
+          <TouchableOpacity
+            style={[
+              styles.button,
+              styles.correctButton,
+              (!session.hasPoints || session.saveStatus === 'saving') && styles.buttonDisabled,
+            ]}
+            onPress={() => session.submitTrace('correct')}
+            disabled={!session.hasPoints || session.saveStatus === 'saving'}
+          >
+            <Text style={styles.buttonText}>✓ Correct</Text>
+          </TouchableOpacity>
+        </View>
+      </SafeAreaView>
     </View>
   );
 }
@@ -232,7 +235,7 @@ const styles = StyleSheet.create({
   buttonRow: {
     flexDirection: 'row',
     gap: 10,
-    paddingBottom: Platform.OS === 'ios' ? 40 : 24,
+    paddingBottom: 12,
   },
   button: {
     flex: 1,
